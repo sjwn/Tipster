@@ -21,6 +21,8 @@
 
 // anything between quotes is "safe" (a string) . program won't run it
 
+//make some change
+
 import UIKit
 
 class ViewController: UIViewController {
@@ -29,13 +31,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var billAmountField: UITextField!
     @IBOutlet weak var tipControl: UISegmentedControl!
-    
+    @IBOutlet weak var numberOfPeopleField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
          tipAmountLabel.backgroundColor = UIColor.purpleColor()
         
+        numberOfPeopleField.text = "1"
         tipAmountLabel.text = "$0.00"
         totalLabel.text = "$0.00"
     }
@@ -62,9 +65,17 @@ class ViewController: UIViewController {
         var billAmount = NSString(string: amount!).doubleValue
     
         var tipAmount = billAmount *   tipPercentage
-        var total = billAmount + tipAmount
         
+    
+        var numberOfPeople = NSString(string: numberOfPeopleField.text!).doubleValue
+
+        if (numberOfPeople < 1) {
+            numberOfPeople = 1
+        }
         
+        var total = (billAmount + tipAmount) / numberOfPeople
+
+    
         tipAmountLabel.text = "$\(tipAmount)"
         totalLabel.text = "$\(total)"
     
